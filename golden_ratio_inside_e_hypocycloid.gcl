@@ -1,0 +1,57 @@
+dim 120 100
+ang_picture 3 3 115 95
+ang_origin 60 50
+background 0 0 0
+linethickness 0.25
+
+number k 2.72
+expression c2_x { 4-4/k}
+expression a_x { 4-8/k}
+
+expression m { (1+sqrt(5))/2}
+expression c3_x { a_x*(1-1/m)}
+expression b_x { a_x*(1-2/m)}
+
+color 255 255 255
+
+point D 0 0 7200 0  
+getx theta D
+expression phi { -k*theta }
+expression alpha { -m*theta }
+
+ang_point C1 0 0
+
+ang_point C2_start c2_x 0
+ang_point P_start 4 0
+ang_point A a_x 0
+
+ang_point C3_start c3_x 0
+ang_point Q_start a_x 0
+ang_point B b_x 0
+
+rotate P1 C1 theta P_start
+rotate C2 C1 theta C2_start
+rotate P C2 phi P1
+cmark C2
+cmark P
+
+rotate Q1 C1 theta Q_start
+rotate C3 C1 theta C3_start
+rotate Q C3 alpha Q1
+cmark C3
+cmark Q
+
+drawcircle C1 P_start
+drawcircle C2 P
+drawcircle C3 Q
+
+trace P 255 0 255
+trace Q 0 255 255
+
+color 238 130 238
+drawsegment C2 P 
+
+color 137 207 240
+drawsegment C3 Q
+
+animation_frames 1000 30
